@@ -1,0 +1,98 @@
+{
+  "nodes": [
+    {
+      "name": "metadata_probe",
+      "enabled": true,
+      "is_probe": false
+    },
+    {
+      "name": "problems_identifier_probe",
+      "enabled": true,
+      "is_probe": false
+    },
+    {
+      "name": "imputation_probe",
+      "enabled": false,
+      "is_probe": true
+    },
+    {
+      "name": "distribution_probe",
+      "enabled": false,
+      "is_probe": true
+    },
+    {
+      "name": "formatting_probe",
+      "enabled": true,
+      "is_probe": true
+    },
+    {
+      "name": "column_outlier_probe",
+      "enabled": false,
+      "is_probe": true
+    },
+    {
+      "name": "row_outlier_probe",
+      "enabled": false,
+      "is_probe": true
+    },
+    {
+      "name": "leave_one_out_probe",
+      "enabled": false,
+      "is_probe": true
+    },
+    {
+      "name": "resolvers",
+      "enabled": false,
+      "is_probe": false
+    }
+  ],
+  "learners_configurations": [
+    {
+      "name": "imputation_learner",
+      "configuration": {
+        "imputation_rf_iterations": 4,
+        "missing values_names": [
+          "nan",
+          "empty",
+          "none",
+          "missing",
+          "not-set",
+          ""
+        ]
+      }
+    },
+    {
+      "name": "problem_identifier",
+      "configuration": {
+        "problems_associations": {
+          "NUMERICAL": ["accuracy", "outlier", "distribution", "imputation", "formatting", "column_outlier"],
+          "CATEGORICAL": ["accuracy", "outlier", "distribution", "imputation", "formatting", "column_outlier"],
+          "DATE": ["imputation", "distribution", "formatting", "column_outlier"],
+          "TEXT": [],
+          "COUNTRY": ["imputation", "distribution", "column_outlier"],
+          "CITY": ["imputation", "distribution", "column_outlier"],
+          "TIMESTAMP": ["imputation", "distribution", "formatting", "column_outlier"],
+          "BINARY": ["imputation", "distribution"],
+          "NUM_ID": ["accuracy", "outlier", "imputation", "formatting"],
+          "STR_ID": ["accuracy", "outlier", "imputation", "formatting"],
+          "KEY": [],
+          "ID": ["imputation", "outlier", "formatting"]
+        }
+      }
+    },
+    {
+      "name": "leave_one_out_learner",
+      "configuration": {
+          "loo_hours_of_iterations": 24
+      }
+    },
+    {
+      "name": "multivariate_outlier_probe",
+      "configuration": {
+          "epochs": 5,
+        "channels": [10,30,60],
+        "step": 3
+      }
+    }
+  ]
+}
